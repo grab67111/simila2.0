@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     // для сохранения
     private SharedPreferences sPref;
-    Integer open_state;
-    Integer send_state;
+    Integer open_state = 2;
+    Integer send_state = 2;
     ArrayDeque<String> history = new ArrayDeque<String>();
     // определяет размер истории, менять тут
     Integer history_size = 20;
@@ -176,10 +176,8 @@ public class MainActivity extends AppCompatActivity {
 
     // загрузка сохраненного выбора в локальный файл
     public void load() {
-        if (sPref.contains("open_state"))
-            open_state = sPref.getInt("open_state", 2);
-        if (sPref.contains("send_state"))
-            send_state = sPref.getInt("send_state", 2);
+        open_state = sPref.getInt("open_state", 2);
+        send_state = sPref.getInt("send_state", 2);
         if (sPref.contains("str")) {
             String str = sPref.getString("str","");
             String buf = "";
