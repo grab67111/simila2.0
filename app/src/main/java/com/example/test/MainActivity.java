@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         for(String pq : history) {
             historyset += pq;
         }
-//
+
         Log.w("Send", String.valueOf(send_state));
         ed.putString("str", historyset);
         ed.putInt("open_state", open_state);
