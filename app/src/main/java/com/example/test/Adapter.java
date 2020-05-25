@@ -31,7 +31,7 @@ public class Adapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return models.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -46,11 +46,11 @@ public class Adapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.item, container, false);
 
         ImageView imageView;
-
+        int i = position % models.size();
 
         imageView = view.findViewById(R.id.image);
 
-        imageView.setImageResource(models.get(position).getImage());
+        imageView.setImageResource(models.get(i).getImage());
 
 
         view.setOnClickListener(new View.OnClickListener() {

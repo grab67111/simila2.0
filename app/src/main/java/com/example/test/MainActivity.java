@@ -9,11 +9,13 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Field;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             models.add(new Model(R.drawable.shazam));
             models.add(new Model(R.drawable.deezer));
             models.add(new Model(R.drawable.google));
+            models.add(new Model(R.drawable.apple));
+
 
             adapter = new Adapter(models, this);
 
@@ -103,19 +107,39 @@ public class MainActivity extends AppCompatActivity {
             viewPager.setCurrentItem(open_state);
             viewPager2.setCurrentItem(send_state);
 
-            Animation sunRiseAnimation = AnimationUtils.loadAnimation(this, R.anim.aplha_anim);
-            sunRiseAnimation.setDuration(700);
+
+
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if (position < (adapter.getCount() - 1)) {
-                        relativeLayout.startAnimation(sunRiseAnimation);
+
                     }
                 }
 
                 @Override
                 public void onPageSelected(int position) {
-                    open_state = position;
+
+
+                    int j = position % models.size();
+                    send_state = j;
+                    final int childCount = viewPager.getChildCount();
+                    for (int i = 0; i < childCount; i++) {
+                        final View child = viewPager.getChildAt(i);
+                        child.setPadding(0,0,0,0);
+                        final ViewPager.LayoutParams lp = (ViewPager.LayoutParams) child.getLayoutParams();
+                        int position1 = 0;
+                        try {
+                            Field f = lp.getClass().getDeclaredField("position");
+                            f.setAccessible(true);
+                            position1 = f.getInt(lp); //IllegalAccessException
+                        } catch (NoSuchFieldException | IllegalAccessException ex) {ex.printStackTrace();}
+                        if (position1 == viewPager.getCurrentItem()  ) {
+
+                            child.setPadding(0,100,0,0);
+
+                        }
+                    }
                 }
 
                 @Override
@@ -127,13 +151,31 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     if (position < (adapter.getCount() - 1)) {
-                        relativeLayout.startAnimation(sunRiseAnimation);
+
                     }
                 }
 
                 @Override
                 public void onPageSelected(int position) {
-                    send_state = position;
+                    int j = position % models.size();
+                    send_state = j;
+                    final int childCount = viewPager2.getChildCount();
+                    for (int i = 0; i < childCount; i++) {
+                        final View child = viewPager2.getChildAt(i);
+                        child.setPadding(0,0,0,0);
+                        final ViewPager.LayoutParams lp = (ViewPager.LayoutParams) child.getLayoutParams();
+                        int position1 = 0;
+                        try {
+                            Field f = lp.getClass().getDeclaredField("position");
+                            f.setAccessible(true);
+                            position1 = f.getInt(lp); //IllegalAccessException
+                        } catch (NoSuchFieldException | IllegalAccessException ex) {ex.printStackTrace();}
+                        if (position1 == viewPager2.getCurrentItem()  ) {
+
+                            child.setPadding(0,0,0,100);
+
+                        }
+                    }
                 }
 
                 @Override
