@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             btn1 = (Button) findViewById(R.id.btnDefault);
             RelativeLayout relativeLayout = findViewById(R.id.layout);
 
-
+//
             models.add(new Model(R.drawable.yandex));
             models.add(new Model(R.drawable.vk));
             models.add(new Model(R.drawable.youtube));
