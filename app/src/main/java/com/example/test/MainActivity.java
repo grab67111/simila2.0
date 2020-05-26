@@ -107,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
             viewPager.setCurrentItem(open_state);
             viewPager2.setCurrentItem(send_state);
 
-
-
             viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -119,10 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onPageSelected(int position) {
-
-
                     int j = position % models.size();
-                    send_state = j;
+                    open_state = j;
                     final int childCount = viewPager.getChildCount();
                     for (int i = 0; i < childCount; i++) {
                         final View child = viewPager.getChildAt(i);
@@ -135,9 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             position1 = f.getInt(lp); //IllegalAccessException
                         } catch (NoSuchFieldException | IllegalAccessException ex) {ex.printStackTrace();}
                         if (position1 == viewPager.getCurrentItem()  ) {
-
                             child.setPadding(0,100,0,0);
-
                         }
                     }
                 }
@@ -171,9 +165,7 @@ public class MainActivity extends AppCompatActivity {
                             position1 = f.getInt(lp); //IllegalAccessException
                         } catch (NoSuchFieldException | IllegalAccessException ex) {ex.printStackTrace();}
                         if (position1 == viewPager2.getCurrentItem()  ) {
-
                             child.setPadding(0,0,0,100);
-
                         }
                     }
                 }
